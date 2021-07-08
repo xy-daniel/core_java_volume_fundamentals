@@ -2,6 +2,9 @@ package com.daniel.three;
 
 //直接使用Math类方法
 
+import java.util.Arrays;
+import java.util.Locale;
+
 import static java.lang.Math.*;
 
 /**
@@ -11,7 +14,7 @@ import static java.lang.Math.*;
  * @version 1.0 20210609
  */
 @SuppressWarnings("ALL")
-public class FirstSample {
+public class ThreeSample {
 
     /**
      * 常量,必须使用final定义
@@ -225,6 +228,83 @@ public class FirstSample {
             System.out.println(emptyString + "是空字符串");
         }
         System.out.println("3.6.6 码点与代码单元.-------------------------------");
+        System.out.println("Java字符串由char值序列组成，char数据类型是一个采用UTF-16编码表示的Unicode码点的代码单元");
+        System.out.println("length方法将返回采用UTF-16编码表示的给定字符串所需的代码单元数量：");
+        greeting = "Hello";
+        //is 5
+        n = greeting.length();
+        System.out.println("得到实际的长度，即码点数量：");
+        int cpCount = greeting.codePointCount(0, n);
+        System.out.println("greeting.codePointCount(0, n) = " + cpCount);
+        System.out.println("调用s.chatAt(n)将返回位置n的代码单元：");
+        char first = greeting.charAt(0);
+        char last = greeting.charAt(4);
+        System.out.println(first + "----" + last);
+        System.out.println("要想得到第i个码点，应该使用下列的语句：");
+        int index = greeting.offsetByCodePoints(0, 2);
+        int cp = greeting.codePointAt(index);
+        System.out.println(cp);
+        System.out.println("字符串转换为码点数组：");
+        Arrays.stream(greeting.codePoints().toArray()).forEach(System.out::println);
+        System.out.println("码点数组转换为字符串：");
+        System.out.println(new String(greeting.codePoints().toArray(), 0, greeting.codePoints().toArray().length));
+        System.out.println("总结：代码单元即是组成字符串的实际代码单元，码点即是代码单元对应的utf-16值");
+        System.out.println("3.6.7 String API -------------------------------");
+        System.out.println("返回给定位置的代码单元：" + greeting.charAt(0));
+        System.out.println("返回给定位置的码点：" + greeting.codePointAt(2));
+        System.out.println("返回从startIndex代码点开始，位移cPCount后的码点索引：" + greeting.offsetByCodePoints(0, 2));
+        System.out.println("按照字典顺序，字符串位于参数之前返回一个负数，字符串位于参数之后返回一个正数，两个字符串相等返回0");
+        //相等0
+        System.out.println(greeting.compareTo(greeting));
+        //参数之前负数
+        System.out.println(greeting.compareTo("greeting---"));
+        //参数之后正数
+        System.out.println(greeting.compareTo("---greeting"));
+        System.out.println("将一个字符串的码点作为一个流返回调用toArray将它们放在一个数组中：" + greeting.codePoints().toArray());
+        System.out.println("用数组中从offset开始的count个码点构造一个字符串：" + new String(greeting.codePoints().toArray(), 2, 2));
+        System.out.println("判断字符串是否相等：");
+        System.out.println("greeting".equals(greeting));
+        System.out.println("Hello".equals(greeting));
+        System.out.println("忽略大小写判断字符串是否相等：" + "hello".equalsIgnoreCase(greeting));
+        System.out.println("判断字符串是否以参数开头或结尾：");
+        System.out.println(greeting.startsWith("Hel"));
+        System.out.println(greeting.endsWith("lo"));
+        System.out.println("返回字符串参数或代码点参数匹配的第一个子串的额开始位置：");
+        System.out.println(greeting.indexOf("l"));
+        System.out.println(greeting.indexOf(108));
+        System.out.println(greeting.indexOf("l", 3));
+        System.out.println(greeting.indexOf(108, 3));
+        System.out.println("返回字符串参数或代码点参数匹配的最后一个子串的额开始位置：");
+        System.out.println(greeting.lastIndexOf("l"));
+        System.out.println(greeting.lastIndexOf(108));
+        System.out.println(greeting.lastIndexOf("l", 2));
+        System.out.println(greeting.lastIndexOf(108, 2));
+        System.out.println("返回字符串长度：" + greeting.length());
+        System.out.println("返回startIndex与endIndex-1之间的代码点数量：" + greeting.codePointCount(0, 4));
+        System.out.println("字符串替换：" + greeting.replace("lo", "test"));
+        System.out.println("字符串截取：");
+        System.out.println(greeting.substring(1));
+        System.out.println(greeting.substring(1,3));
+        System.out.println("字符串小写：" + greeting.toLowerCase(Locale.ROOT));
+        System.out.println("字符串大写：" + greeting.toUpperCase(Locale.ROOT));
+        System.out.println("字符串去掉两端空格：" + (" " + greeting + " ").trim());
+        System.out.println("字符串拼接(静态方法)：" + String.join("-", "H","e","l","l","o"));
+        System.out.println("3.6.8 阅读联机API文档 -------------------------------");
+        System.out.println("https://docs.oracle.com/javase/8/docs/api/");
+        System.out.println("3.6.9 构建字符串 -------------------------------");
+        System.out.println("StringBuilder(前身为StringBuffer，效率稍低，但是允许使用多线程方式执行添加或删除字符操作，两个类的API相同):");
+        System.out.println("构造一个空的字符串构建器：");
+        StringBuilder builder = new StringBuilder();
+        System.out.println("追加一个字符串并返回this:" + builder.append("china"));
+        System.out.println("追加一个代码单元并返回this:" + builder.append('/'));
+        System.out.println("追加一个代码点，并将其转换为一个或两个代码单元并返回this:" + builder.appendCodePoint(108));
+        System.out.println("追加一个代码单元并返回this:" + builder.append('/'));
+        System.out.println("将第i(从0开始计算)个代码单元设置为c:void setCharAt(int i,char c)");
+        builder.setCharAt(6, 'L');
+        System.out.println(builder.toString());
+        System.out.println("返回构建器或缓冲器中的代码单元数量：" + builder.length());
 
+
+        System.out.println("注：采用字符串连接的方式连接较短的字符串效率比较低，每次连接都构建一个新的String对象，耗时且浪费空间.");
     }
 }
