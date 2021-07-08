@@ -2,8 +2,10 @@ package com.daniel.three;
 
 //直接使用Math类方法
 
+import java.io.Console;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Scanner;
 
 import static java.lang.Math.*;
 
@@ -301,10 +303,27 @@ public class ThreeSample {
         System.out.println("追加一个代码单元并返回this:" + builder.append('/'));
         System.out.println("将第i(从0开始计算)个代码单元设置为c:void setCharAt(int i,char c)");
         builder.setCharAt(6, 'L');
-        System.out.println(builder.toString());
+        System.out.println("在offset位置插入一个字符串并返回this:" + builder.insert(0, "/"));
+        System.out.println("在offset位置插入一个代码单元并返回this:" + builder.insert(0, 'P'));
+        System.out.println("删除从startIndex到endIndex-1的代码单元并返回this:" + builder.delete(0, 2));
+        System.out.println("返回一个与构建器或缓冲器内容相同的字符串：" + builder.toString());
         System.out.println("返回构建器或缓冲器中的代码单元数量：" + builder.length());
-
-
         System.out.println("注：采用字符串连接的方式连接较短的字符串效率比较低，每次连接都构建一个新的String对象，耗时且浪费空间.");
+        System.out.println("3.7 输入输出================================");
+        System.out.println("3.7.1 读取输入 -------------------------------");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("读取整行：" + scanner.nextLine());
+        System.out.println("读取单词：" + scanner.next());
+        System.out.println("读取整数：" + scanner.nextInt());
+        System.out.println("读取浮点数：" + scanner.nextDouble());
+        System.out.println("检测未读取输入中是否还有其他单词：" + scanner.hasNext());
+        System.out.println("检测未读取输入中是否还有其他整数：" + scanner.hasNextInt());
+        System.out.println("检测未读取输入中是否还有其他浮点数：" + scanner.hasNextDouble());
+        System.out.println("Scanner为明文输入,可以使用console进行密文输入但是真的是需要javac控制台运行");
+//        Console console = System.console();
+//        String readLine = console.readLine("username:");
+//        char[] readPassword = console.readPassword("password:");
+//        System.out.println(readLine);
+//        System.out.println(readPassword);
     }
 }
