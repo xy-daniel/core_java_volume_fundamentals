@@ -2,8 +2,13 @@ package com.daniel.three;
 
 //直接使用Math类方法
 
-import java.io.Console;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -23,7 +28,7 @@ public class ThreeSample {
      */
     private static final double CM_PER_INCH = 2.54;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //is this too cute?
         System.out.println("We will not use 'Hello World'");
 
@@ -286,11 +291,11 @@ public class ThreeSample {
         System.out.println("字符串替换：" + greeting.replace("lo", "test"));
         System.out.println("字符串截取：");
         System.out.println(greeting.substring(1));
-        System.out.println(greeting.substring(1,3));
+        System.out.println(greeting.substring(1, 3));
         System.out.println("字符串小写：" + greeting.toLowerCase(Locale.ROOT));
         System.out.println("字符串大写：" + greeting.toUpperCase(Locale.ROOT));
         System.out.println("字符串去掉两端空格：" + (" " + greeting + " ").trim());
-        System.out.println("字符串拼接(静态方法)：" + String.join("-", "H","e","l","l","o"));
+        System.out.println("字符串拼接(静态方法)：" + String.join("-", "H", "e", "l", "l", "o"));
         System.out.println("3.6.8 阅读联机API文档 -------------------------------");
         System.out.println("https://docs.oracle.com/javase/8/docs/api/");
         System.out.println("3.6.9 构建字符串 -------------------------------");
@@ -303,27 +308,217 @@ public class ThreeSample {
         System.out.println("追加一个代码单元并返回this:" + builder.append('/'));
         System.out.println("将第i(从0开始计算)个代码单元设置为c:void setCharAt(int i,char c)");
         builder.setCharAt(6, 'L');
-        System.out.println("在offset位置插入一个字符串并返回this:" + builder.insert(0, "/"));
-        System.out.println("在offset位置插入一个代码单元并返回this:" + builder.insert(0, 'P'));
-        System.out.println("删除从startIndex到endIndex-1的代码单元并返回this:" + builder.delete(0, 2));
-        System.out.println("返回一个与构建器或缓冲器内容相同的字符串：" + builder.toString());
+        System.out.println(builder.toString());
         System.out.println("返回构建器或缓冲器中的代码单元数量：" + builder.length());
         System.out.println("注：采用字符串连接的方式连接较短的字符串效率比较低，每次连接都构建一个新的String对象，耗时且浪费空间.");
         System.out.println("3.7 输入输出================================");
         System.out.println("3.7.1 读取输入 -------------------------------");
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("读取整行：" + scanner.nextLine());
-        System.out.println("读取单词：" + scanner.next());
-        System.out.println("读取整数：" + scanner.nextInt());
-        System.out.println("读取浮点数：" + scanner.nextDouble());
-        System.out.println("检测未读取输入中是否还有其他单词：" + scanner.hasNext());
-        System.out.println("检测未读取输入中是否还有其他整数：" + scanner.hasNextInt());
-        System.out.println("检测未读取输入中是否还有其他浮点数：" + scanner.hasNextDouble());
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("读取整行：" + scanner.nextLine());
+//        System.out.println("读取单词：" + scanner.next());
+//        System.out.println("读取整数：" + scanner.nextInt());
+//        System.out.println("读取浮点数：" + scanner.nextDouble());
+//        System.out.println("检测未读取输入中是否还有其他单词：" + scanner.hasNext());
+//        System.out.println("检测未读取输入中是否还有其他整数：" + scanner.hasNextInt());
+//        System.out.println("检测未读取输入中是否还有其他浮点数：" + scanner.hasNextDouble());
         System.out.println("Scanner为明文输入,可以使用console进行密文输入但是真的是需要javac控制台运行");
 //        Console console = System.console();
 //        String readLine = console.readLine("username:");
 //        char[] readPassword = console.readPassword("password:");
 //        System.out.println(readLine);
 //        System.out.println(readPassword);
+        System.out.println("3.7.2 格式化输出 -------------------------------");
+        x = 10000.0 / 3.0;
+        System.out.print(x);
+        //8个字符宽度(1个空格、7个字符)和小数点后两位
+        System.out.printf("%8.2f", x);
+        System.out.printf("Hello, %s. Next year, you'll be %d%n", "daniel", 24);
+        System.out.println("printf转换符:表3-5");
+        System.out.println("printf标志:表3-6");
+        System.out.println("使用静态的String.format()方法创建一个格式化字符串，而不打印输出：" + String.format("Hello, %s. Next Year, you'll " +
+                "be %d", "daniel", 24));
+        System.out.printf("%tc%n", new Date());
+        System.out.println("日期和时间转换符:表3-7(p59)");
+        System.out.println("格式说明符语法:图3-6(p60)");
+        System.out.println("3.7.2 文件输入与输出 -------------------------------");
+        Scanner fileScanner = new Scanner(
+                Paths.get("src\\com\\daniel\\three\\testRead.txt"),
+                "UTF-8"
+        );
+        System.out.println(fileScanner.nextLine());
+        System.out.println(fileScanner.nextLine());
+        System.out.println(fileScanner.next());
+        System.out.println(fileScanner.nextInt());
+        PrintWriter printWriter = new PrintWriter(
+                "src\\com\\daniel\\three\\testWrite.txt",
+                "UTF-8"
+        );
+        printWriter.println("testWrite");
+        printWriter.print(123);
+        printWriter.printf("Hello %s.", "daniel");
+        System.out.println("IDE用户当前路径：" + System.getProperty("user.dir"));
+        System.out.println("3.8 控制流程 ===========================");
+        System.out.println("3.8.1 块作用域 -------------------------");
+        {
+            String bolckParams = "blockParams";
+            System.out.println(bolckParams);
+        }
+        System.out.println("3.8.2 条件语句 -------------------------");
+        if (true) {
+            System.out.println(true);
+        } else {
+            System.out.println(false);
+        }
+        System.out.println("3.8.3 循环 -------------------------");
+        int condtion = 10;
+        while (condtion > 0) {
+            System.out.println("while --- " + condtion);
+            condtion--;
+        }
+        System.out.println("condition = " + condtion);
+        condtion = 0;
+        do {
+            System.out.println("while --- " + condtion);
+            condtion--;
+        } while (condtion > 0);
+        System.out.println("condition = " + condtion);
+        System.out.println("3.8.4 确定循环 -------------------------");
+        condtion = 10;
+        for (int i = 0; i < condtion; i++) {
+            System.out.println("condition = " + i);
+        }
+        System.out.println("从n个数字中选择6个数字.");
+        int lotterOdds = 1;
+        int k = 6;
+        n = 50;
+        for (int i = 1; i <= k; i++) {
+            lotterOdds = lotterOdds * (n - i + 1) / i;
+        }
+        System.out.println("1/" + lotterOdds);
+        System.out.println("3.8.5 多重选择：switch语句 -------------------------");
+        int choice = 1;
+        switch (choice) {
+            case 1:
+                System.out.println(1);
+                break;
+            case 2:
+                System.out.println(2);
+                break;
+            case 3:
+                System.out.println(3);
+                break;
+            case 4:
+                System.out.println(4);
+                break;
+            default:
+                System.out.println("default");
+        }
+        System.out.println("case标签可以是char/byte/short/int/menu/string");
+        System.out.println("3.8.5 中断控制流程语句 -------------------------");
+        int years = 1;
+        while (years <= 100) {
+            if (years == 50) {
+                System.out.println("退出while循环,year = " + years);
+                break;
+            }
+            years++;
+        }
+        int forResult = 0;
+        for (int i = 0; i <= 100; i++) {
+            if (i > 5) {
+                continue;
+            }
+            forResult += i;
+        }
+        System.out.println(forResult);
+        System.out.println("3.9 大数值 =========================");
+        System.out.println("Biglnteger类实现了任意精度的整数运算,BigDecimal实现了任意精度的浮点数运算.但是无法使用普通的运算符号.");
+        System.out.println("使用静态的 valueOf方法可以将普通的数值转换为大数值：");
+        BigInteger bigInteger = BigInteger.valueOf(100);
+        bigInteger = bigInteger.subtract(bigInteger);
+        System.out.println(bigInteger);
+        bigInteger = bigInteger.add(BigInteger.valueOf(100));
+        System.out.println(bigInteger);
+        bigInteger = bigInteger.multiply(bigInteger);
+        System.out.println(bigInteger);
+        bigInteger = bigInteger.divide(bigInteger);
+        System.out.println(bigInteger);
+        bigInteger = bigInteger.mod(bigInteger);
+        System.out.println(bigInteger);
+        int compareTo = bigInteger.compareTo(BigInteger.valueOf(10));
+        System.out.println(compareTo);
+        BigDecimal bigDecimal = BigDecimal.valueOf(10.01);
+        bigDecimal = bigDecimal.subtract(bigDecimal);
+        System.out.println(bigDecimal);
+        bigDecimal = bigDecimal.add(BigDecimal.valueOf(10.01));
+        System.out.println(bigDecimal);
+        bigDecimal = bigDecimal.multiply(bigDecimal);
+        System.out.println(bigInteger);
+        bigDecimal = bigDecimal.divide(bigDecimal);
+        System.out.println(bigDecimal);
+        int compareToBigDecimal = bigDecimal.compareTo(BigDecimal.valueOf(10.01));
+        System.out.println(compareToBigDecimal);
+        BigDecimal decimal = BigDecimal.valueOf(10, 5);
+        System.out.println(decimal);
+        System.out.println("3.10 数组 =========================");
+        int[] intArray = new int[100];
+        for (int i = 0; i < 100; i++) {
+            intArray[i] = i;
+        }
+        System.out.println("创建一个数字数组时，所有元素初始化为0，boolean数组元素会初始化为false，对象数组则为null");
+        String[] names = new String[10];
+        for (int i = 0; i < 10; i++) {
+            names[i] = "";
+        }
+        System.out.println("3.10.1 for each 循环 --------------------------");
+        System.out.println("循环intArray中的每一个元素:");
+        for (int intParameter : intArray) {
+            System.out.println(intParameter);
+        }
+        System.out.println("3.10.2 数组初始化以及匿名数组 --------------------------");
+        int[] smallPrimes = {3, 2, 5, 7, 9, 11, 13};
+        System.out.println(smallPrimes[0]);
+        //赋值后将不是原来的对象，引用地址会发生变化
+        smallPrimes = new int[]{3, 5, 7, 9, 11, 13, 15};
+        System.out.println(smallPrimes[0]);
+        System.out.println("3.10.3 数组拷贝 ----------------------------");
+        //此方法赋值数组不生成新的对象还是原来的引用地址，修改后原参数将发生变化.
+        int[] luckyNumbers = smallPrimes;
+        luckyNumbers[5] = 12;
+        System.out.println(smallPrimes[5]);
+        //生成新数组,观察输出的引用地址，luckyNumbers.length通常用来增加数组的大小
+        //如果数组元素是数值型，那么多余的元素将被赋值为 0 ; 如果数组元素是布尔型，则将赋值为 false。相反，如果长度小于原始数组的长度，则只拷贝最前面的数据元素
+        int[] copidLuckyNumbers = Arrays.copyOf(luckyNumbers, luckyNumbers.length);
+        System.out.println(luckyNumbers);
+        System.out.println(copidLuckyNumbers);
+        System.out.println("3.10.4 命令行参数(main方法String arg[],假设此类使用java Message -g cruel world运行)");
+        args = new String[3];
+        args[0] = "-g";
+        args[1] = "cruel";
+        args[2] = "world";
+        if (args.length == 0 || args[0].equals("h")) {
+            System.out.print("Hello.");
+        } else if (args[0].equals("-g")) {
+            System.out.print("Goodbye.");
+        }
+        for (int i = 1; i < args.length; i++)
+            System.out.print(" " + args[i]);
+        System.out.println("!");
+        System.out.println("3.10.5 数组排序 ------------------------");
+        //优化的快速排序算法
+        Arrays.sort(smallPrimes);
+        //输出以逗号分割的元素字符串
+        System.out.println(Arrays.toString(smallPrimes));
+        //截取
+        System.out.println(Arrays.toString(Arrays.copyOf(smallPrimes, 3)));
+        System.out.println(Arrays.toString(Arrays.copyOfRange(smallPrimes, 3, 5)));
+        //二分搜索算法查找值
+        System.out.println(Arrays.binarySearch(smallPrimes, 12));
+        System.out.println(Arrays.binarySearch(smallPrimes, 6, 7, 12));
+        //将数组的所有元素设置为参数
+        Arrays.fill(smallPrimes, 1);
+        System.out.println(Arrays.toString(smallPrimes));
+        //判断两个数组是否相等
+        System.out.println(Arrays.equals(smallPrimes, luckyNumbers));
     }
 }
