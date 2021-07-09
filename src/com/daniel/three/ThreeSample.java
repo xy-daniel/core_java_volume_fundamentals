@@ -321,5 +321,6 @@ public class ThreeSample {
 //        char[] readPassword = console.readPassword("password:");
 //        System.out.println(readLine);
 //        System.out.println(readPassword);
+        System.out.println("测试提交github和gitee");
     }
 }
