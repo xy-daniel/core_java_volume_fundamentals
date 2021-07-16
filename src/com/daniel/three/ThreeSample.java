@@ -1,7 +1,5 @@
 package com.daniel.three;
 
-//直接使用Math类方法
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
