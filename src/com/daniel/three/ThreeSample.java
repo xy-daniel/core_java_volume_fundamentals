@@ -1,7 +1,5 @@
 package com.daniel.three;
 
-//直接使用Math类方法
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -520,5 +518,40 @@ public class ThreeSample {
         System.out.println(Arrays.toString(smallPrimes));
         //判断两个数组是否相等
         System.out.println(Arrays.equals(smallPrimes, luckyNumbers));
+        System.out.println("3 . 1 0.6 多维数组 --------------------");
+        double[][] balances = new double[10][5];
+        //使用for或for_each初始化二维数组
+        for (int i = 0; i < balances.length; i++) {
+            double[] row = balances[i];
+            for (int j = 0; j < row.length; j++) {
+                balances[i][j] = i + j;
+            }
+        }
+        System.out.println(balances[1][2]);
+        System.out.println(Arrays.deepToString(balances));
+        int[][] magicSqurare = {
+                {16, 3, 2, 12},
+                {5, 10, 11, 8},
+                {9, 6, 7, 12},
+                {4, 15, 14, 1}
+        };
+        System.out.println(magicSqurare[1][0]);
+        System.out.println("3.10.7 不规则数组 -------------------");
+        //java中不存在二维数组其实二维数组就是包含多个数组元素的数组，因此可以将两行进行交换,还可以构造不同长度的二维数组
+        double[] temp = balances[0];
+        balances[0] = balances[1];
+        balances[1] = temp;
+        System.out.println(Arrays.deepToString(balances));
+        int[][] odds = new int[5][];
+        for (int i = 0; i < odds.length; i++) {
+            //初始化数组长度
+            odds[i] = new int[i + 1];
+        }
+        for (int i = 0; i < odds.length; i++) {
+            for (int j = 0; j < odds[i].length; j++) {
+                odds[i][j] = i + j;
+            }
+        }
+        System.out.println(Arrays.deepToString(odds));
     }
 }
