@@ -1,4 +1,4 @@
-package com.daniel.three;
+package com.daniel.corejava.three;
 
 import java.io.IOException;
 import java.io.PrintWriter;

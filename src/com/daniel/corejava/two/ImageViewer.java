@@ -1,4 +1,4 @@
-package com.daniel.two;
+package com.daniel.corejava.two;
 
 import javax.swing.*;
 import java.awt.*;

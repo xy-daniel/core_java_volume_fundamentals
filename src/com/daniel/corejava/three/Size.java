@@ -1,4 +1,4 @@
-package com.daniel.three;
+package com.daniel.corejava.three;
 
 /**
  * @author daniel

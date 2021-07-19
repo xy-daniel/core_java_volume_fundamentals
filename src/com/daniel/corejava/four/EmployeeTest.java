@@ -1,9 +1,18 @@
-package com.daniel.four;
+package com.daniel.corejava.four;
 
 import java.time.LocalDate;
+import java.util.Random;
+//导入静态类的特定方法或域
+import static java.lang.System.out;
 
 /**
  * 测试用employee类
+ * 重载构造器
+ * 用this调用另一个构造器
+ * 无参数构造器
+ * 对象初始化块
+ * 静态初始化块
+ * 实例域初始化
  * @date 2021.07.18
  * @author daniel
  */
@@ -22,19 +31,37 @@ public class EmployeeTest {
             e.raiseSalary(5);
         }
         for (Employee e:staff) {
-            System.out.println(e.toString());
+            out.println(e.toString());
         }
     }
 }
 
 class Employee {
+//    private static int nextId = 1;
+    /**
+     * 域注释
+     * 默认值为0初始化为1,假设此静态值特别复杂使用静态代码块进行初始化
+     */
+    private static int nextId;
+    static {
+        nextId = new Random().nextInt(10000);
+    }
+
+    private int id;
     private String name;
-    private double salary;
+    //显式域初始化
+    private double salary = 10000.0;
     //LocalDate没有更改器方法  相反Date有一个更改器方法setTime可以破坏hireDay的私有性
     private LocalDate hireDay;
 
+    //普通代码块只有在构造对象时才会使用
+    {
+        this.id = nextId;
+        nextId++;
+    }
+
     /**
-     * 构造器
+     * 构造器--重载构造器
      * @param name 姓名
      * @param salary 工资
      * @param year 入职年
@@ -51,7 +78,8 @@ class Employee {
      * 没有创建构造器的方法时自动创建
      * 但是只要有其他构造器若想使用必须显式的编写
      */
-    public Employee() {}
+    public Employee() {
+    }
 
     /**
      * Employee、this为此方法的隐式参数（方法调用的目标或接收者）
@@ -64,7 +92,7 @@ class Employee {
 
     @Override
     public String toString() {
-        return "name='" + name + ", salary=" + salary + ", hireDay=" + hireDay;
+        return "id=" + id +",name='" + name + ", salary=" + salary + ", hireDay=" + hireDay;
     }
 
     /**
