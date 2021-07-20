@@ -9,11 +9,11 @@ import java.util.GregorianCalendar;
 import static java.lang.System.*;
 
 /**
- * This is the first sample program in Core Java Chapter 4 (object and class)
- * 面向对象程序设计、如何创建标准Java类库中的类对象
- * 如何编写自己的类
- * 如何创建转准Java类库中的类和对象
- * 如何编写自己的类
+ * This is the first sample program in Core Java Chapter 4 (object and class)<br/>
+ * 面向对象程序设计、如何创建标准Java类库中的类对象<br/>
+ * 如何编写自己的类<br/>
+ * 如何创建转准Java类库中的类和对象<br/>
+ * 如何编写自己的类<br/>
  *
  * @author daniel
  * @version 1.0 20210712
@@ -21,18 +21,20 @@ import static java.lang.System.*;
 public class FourSample {
 
     public static void main(String[] args) {
-        four1("a");
+        String four1 = four1("a");
+        out.println(four1);
         four2();
     }
 
     /**
      * 面向对象程序设计(OOP)概述
+     *
      * @param param 参数
      * @return 返回一个字符串
      * @throws RuntimeException 可能产生的异常
+     * @see com.daniel.corejava.four.FourSample#four2()
      * @since 20210719
      * @deprecated this class deprecated, please use <code>four2()</code> instead
-     * @see com.daniel.corejava.four.FourSample#four2()
      */
     public static String four1(String param) throws RuntimeException {
         // 对象的三个主要特征：对象的行为、对象的状态、对象的标识
