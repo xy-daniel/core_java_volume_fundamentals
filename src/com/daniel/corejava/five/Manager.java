@@ -2,6 +2,8 @@ package com.daniel.corejava.five;
 
 import com.daniel.corejava.four.Employee;
 
+import java.util.Objects;
+
 /**
  * 管理层子类Manager继承自超类{@link Employee}
  * 在子类中可以增加域、增加方法、或覆盖超类的犯法，然而绝对不能删除继承的任何域和犯法
@@ -19,6 +21,7 @@ public class Manager extends Employee {
      */
     public void setBonus(double bonus) {
         this.bonus = bonus;
+        super.setSalary(super.getSalary() * (1 + bonus / 100));
     }
 
     /**
@@ -49,5 +52,28 @@ public class Manager extends Employee {
     public Manager(String name, double salary, int year, int month, int day) {
         super(name, salary, year, month, day);
         this.bonus = 0;
+    }
+
+    /**
+     * 5.2.1 重写equals方法
+     *
+     * @param otherObject {@link Manager}
+     * @return {@link Boolean}
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        if (!super.equals(otherObject)) return false;
+        Manager managerObject = (Manager) otherObject;
+        return bonus == managerObject.bonus;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), bonus);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[bonus=" + bonus + "]";
     }
 }

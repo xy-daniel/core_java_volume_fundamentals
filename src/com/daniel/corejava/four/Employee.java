@@ -3,6 +3,7 @@ package com.daniel.corejava.four;
 import com.daniel.corejava.five.Person;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -57,6 +58,22 @@ public class Employee extends Person {
     }
 
     /**
+     * 没有创建构造器的方法时自动创建
+     * 但是只要有其他构造器若想使用必须显式的编写
+     */
+    public Employee() {
+    }
+
+    /**
+     * 只使用姓名的构造器
+     *
+     * @param name 姓名
+     */
+    public Employee(String name) {
+        super(name);
+    }
+
+    /**
      * 构造器--重载构造器
      *
      * @param name   姓名
@@ -69,17 +86,6 @@ public class Employee extends Person {
         super(name);
         this.salary = salary;
         this.hireDay = LocalDate.of(year, month, day);
-    }
-
-    /**
-     * 没有创建构造器的方法时自动创建
-     * 但是只要有其他构造器若想使用必须显式的编写
-     */
-    public Employee() {
-    }
-
-    public Employee(String name) {
-        super(name);
     }
 
     /**
@@ -99,7 +105,7 @@ public class Employee extends Person {
      */
     @Override
     public String toString() {
-        return "id=" + id + ",name='" + super.getName() + ", salary=" + salary + ", hireDay=" + hireDay;
+        return getClass().getName() + "[id=" + id + ",name='" + super.getName() + ", salary=" + salary + ", hireDay=" + hireDay + "]";
     }
 
     /**
@@ -110,6 +116,15 @@ public class Employee extends Person {
      */
     public final String getName() {
         return super.getName();
+    }
+
+    /**
+     * 薪资域更改器
+     *
+     * @param salary 薪资
+     */
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
     /**
@@ -129,5 +144,30 @@ public class Employee extends Person {
     @Override
     public String getDescription() {
         return super.getName() + "是一个职工.";
+    }
+
+    /**
+     * 5.2.1 重写equals方法
+     *
+     * @param otherObj {@link Employee}
+     * @return {@link Boolean}
+     */
+    @Override
+    public boolean equals(Object otherObj) {
+        //快速检测对象是否相同
+        if (this == otherObj) return true;
+        //检测对象是否为空
+        if (otherObj == null) return false;
+        //检测是否是同一个类
+        if (getClass() != otherObj.getClass()) return false;
+        Employee otherEmployee = (Employee) otherObj;
+        return super.getName().equals(otherEmployee.getName())
+                && salary == otherEmployee.salary
+                && Objects.equals(hireDay, otherEmployee.hireDay);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, salary, hireDay);
     }
 }
