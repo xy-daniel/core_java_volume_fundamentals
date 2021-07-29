@@ -41,6 +41,14 @@ public class Manager extends Employee {
     }
 
     /**
+     * 只包含姓名的构造器
+     * @param name 姓名
+     */
+    public Manager(String name) {
+        super(name);
+    }
+
+    /**
      * 全参构造方法
      *
      * @param name   姓名
