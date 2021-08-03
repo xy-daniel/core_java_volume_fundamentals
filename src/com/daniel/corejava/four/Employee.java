@@ -12,7 +12,7 @@ import java.util.Random;
  * @author daniel
  * @version 2021.07.19
  */
-public class Employee extends Person {
+public class Employee extends Person implements Comparable<Employee>,Cloneable {
     //静态域初始化
 //    private static int nextId = 1;
     /**
@@ -169,5 +169,40 @@ public class Employee extends Person {
     @Override
     public int hashCode() {
         return Objects.hash(id, salary, hireDay);
+    }
+
+    /**
+     * 6.1 接口
+     * @param other 需要比较的实体
+     * @return 隐式参数小于显示参数将返回一个负值...
+     */
+    @Override
+    public int compareTo(Employee other) {
+        return Double.compare(salary, other.salary);
+    }
+
+    /**
+     * 自定义比较方法
+     * @param one 被比较参数
+     * @param other 比较参数
+     * @return 比较薪资之后的值
+     */
+    public static int compare(Employee one, Employee other) {
+        return one.compareTo(other);
+    }
+
+    /**
+     * 默认的浅克隆方法并没有克隆子对象,但是我们使用的LocalDate对象是不可改变的,所以无需使用深复制
+     *
+     * @return 克隆之后的对象
+     */
+    @Override
+    public Employee clone() {
+        try {
+            return (Employee) super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 }
