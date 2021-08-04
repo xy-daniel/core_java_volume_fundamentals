@@ -26,7 +26,6 @@ import javax.swing.*;
  * 6.1 接口<br/>
  * 6.2 接口示例<br/>
  * 6.3 lambda表达式<br/>
- * 6.4 内部类
  *
  * @author daniel
  * @version 2021.07.30
@@ -311,10 +310,6 @@ public class SixDemo {
         //静态reverseOrder方法会提供自然顺序的逆序：Comparator.reverseOrder() == Comparator.naturalOrder().reversed()
         Arrays.sort(employees, Comparator.comparing(Employee::getName, Comparator.nullsFirst(Comparator.reverseOrder())));
         System.out.println(Arrays.toString(employees));
-
-
-
-
     }
 
     /**
