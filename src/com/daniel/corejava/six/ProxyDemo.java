@@ -41,10 +41,13 @@ public class ProxyDemo {
         Object[] elements = new Object[100];
 
         for (int i = 0; i < elements.length; i++) {
+            //自动装箱为Integer
             Integer value = i;
+            //获取调用处理器
             InvocationHandler handler = new TraceHandler(value);
-            //创建代理对象
+            //创建代理对象：(类加载器, 对象必须实现的接口, 调用处理器)
             Object proxy = Proxy.newProxyInstance(null, new Class[]{Comparable.class}, handler);
+            //将原来的对象更新为代理对象
             elements[i] = proxy;
         }
 
@@ -56,6 +59,8 @@ public class ProxyDemo {
         //binarySearch：二分搜索法，所以查询之前需要用sort()方法将数组排序，如果数组没有排序则结果是不确定的，；另外如果
         //数组中含有多个指定值得元素，则无法保证找到的是哪一个
         //方法注释：如果key在数组中返回搜索值得索引，否则返回-1或插入点
+
+        //使用代理对象进行输出、比较等方法时都会调用处理器先进行处理
         int result = Arrays.binarySearch(elements, key);
         System.out.println("result = " + result);
 
