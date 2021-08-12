@@ -1,9 +1,12 @@
 package com.daniel.corejava.six;
 
 import com.daniel.corejava.four.Employee;
+import javafx.util.Callback;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -46,7 +49,7 @@ import javax.swing.*;
 public class SixDemo {
 
     @SuppressWarnings({"ConstantConditions", "ComparatorCombinators", "UseCompareMethod"})
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //6.1 接口
         Employee daniel = new Employee("daniel", 100, 2000, 2, 2);
         Employee tom = new Employee("tom", 99, 2000, 2, 2);
@@ -241,7 +244,7 @@ public class SixDemo {
 //        String text = "test";
 //        for (int i = 0; i < 10; i++) {
 //            ActionListener eventListener = event -> System.out.println(i + ":" + text);
-//            new Timer(1000, eventListener).start();
+////            new Timer(1000, eventListener).start();
 //        }
         // 并且lambda代码块不允许声明一个局部变量同名的参数或局部变量，
 //        Path first = Paths.get("/usr/local");
@@ -310,6 +313,19 @@ public class SixDemo {
         //静态reverseOrder方法会提供自然顺序的逆序：Comparator.reverseOrder() == Comparator.naturalOrder().reversed()
         Arrays.sort(employees, Comparator.comparing(Employee::getName, Comparator.nullsFirst(Comparator.reverseOrder())));
         System.out.println(Arrays.toString(employees));
+
+        Runnable sleepRunnable = () -> {
+            try {
+                Thread.sleep(5000);
+                System.out.println("5000");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        };
+        sleepRunnable.run();
+        System.out.println("哈哈哈");
+        DirectoryStream.Filter<String> stringFilter = "test"::startsWith;
+        System.out.println(stringFilter.accept("a"));
     }
 
     /**
